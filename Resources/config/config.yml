@@ -1,0 +1,12 @@
+knp_menu:
+    providers:
+        builder_alias: false
+        container_aware: false
+    twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
+        template: PositibeOrmMenuBundle::_knp_menu.html.twig
+    templating: false # if true, enables the helper for PHP templates
+    default_renderer: twig # The renderer to use, list is also available by default
+
+parameters:
+    public_routes:
+    content_class:

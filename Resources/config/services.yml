@@ -1,0 +1,66 @@
+parameters:
+    positibe.menu_node.class: ~
+
+services:
+    positibe_orm_menu.menu_provider:
+        class: Positibe\Bundle\OrmMenuBundle\Menu\Provider\OrmMenuProvider
+        arguments:
+          - @positibe_orm_menu.menu_factory
+          - @doctrine.orm.entity_manager
+          - %positibe.menu_node.class%
+        tags:
+          - { name: knp_menu.provider }
+
+    positibe_orm_menu.menu_factory:
+        class: Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory
+        arguments:
+          - @router
+          - @doctrine.orm.entity_manager
+          - @cmf_core.publish_workflow.checker
+        calls:
+          - [ addCurrentItemVoter, [ @positibe_orm_menu.uri_prefix_voter]]
+#          - [ addCurrentItemVoter, [ @positibe_orm_menu.request_content_identity_voter]]
+
+    positibe_orm_menu.menu_builder:
+        class: Positibe\Bundle\OrmMenuBundle\Builder\MenuBuilder
+
+    positibe_orm_menu.menu_content_voter:
+        class: Positibe\Bundle\OrmMenuBundle\PublishWorkflow\Voter\MenuContentVoter
+        arguments: [@service_container]
+        tags:
+            - { name: cmf_published_voter , priority: 30 }
+
+    positibe_orm_menu.uri_prefix_voter:
+        class: Positibe\Bundle\OrmMenuBundle\Voter\UriPrefixVoter
+        calls:
+            - [ setRequest, [@request_stack]]
+        tags:
+            - { name: cmf_menu.voter }
+
+#    positibe_orm_menu.request_content_identity_voter:
+#        class: Positibe\Bundle\OrmMenuBundle\Voter\RequestContentIdentityVoter
+#        arguments: ['contentDocument']
+#        calls:
+#            - [ setRequest, [@request_stack]]
+#        tags:
+#            - { name: cmf_menu.voter }
+
+#    positibe_orm_menu.create_menu_item_from_node_listener:
+#        class: Positibe\Bundle\OrmMenuBundle\PublishWorkflow\CreateMenuItemFromNodeListener
+#        arguments: [@cmf_core.publish_workflow.checker]
+#        tags:
+#            - { name: kernel.event_listener, event: cmf_menu.create_menu_item_from_node, method: onCreateMenuItemFromNode }
+
+#### Form Types ####
+    positibe_orm_menu.menu_node_form_type:
+        class: Positibe\Bundle\OrmMenuBundle\Form\Type\MenuNodeType
+        arguments: [%positibe.menu_node.class%, %locales%]
+        tags:
+          - { name: form.type , alias: positibe_menu_node }
+
+    positibe_orm_menu.menu_form_type:
+        class: Positibe\Bundle\OrmMenuBundle\Form\Type\MenuType
+
+        arguments: [%positibe.menu_node.class%]
+        tags:
+          - { name: form.type , alias: positibe_menu }

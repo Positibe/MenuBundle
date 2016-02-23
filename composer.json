@@ -1,0 +1,38 @@
+{
+    "name": "positibe/orm-menu-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony PositibeOrmMenuBundle",
+    "keywords": ["cmf","block", "positibe", "positibelabs"],
+    "homepage": "http://positibelabs.blogspot.com/bundles/media",
+    "license": "Private",
+    "version": "0.2.5.3",
+    "authors": [
+        {
+            "name": "Pedro Carlos Abreu Jiménez",
+            "email": "pcabreus@gmail.com",
+            "homepage": "https://github.com/pcabreus"
+        },
+        {
+            "name": "PositibeLabs Cooperative",
+            "homepage": "https://github.com/positibelabs"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "~2.3",
+        "gedmo/doctrine-extensions": "2.3.*",
+        "knplabs/knp-menu-bundle": "~2.0",
+        "symfony-cmf/core-bundle": "1.2.*",
+        "positibe/content-aware": "~0.1",
+        "positibe/publishable": "~0.1",
+        "doctrine/orm": "~2.4"
+
+    },
+    "autoload": {
+        "psr-4": { "Positibe\\Bundle\\OrmMenuBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2.x-dev"
+        }
+    }
+}

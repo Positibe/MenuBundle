@@ -1,0 +1,32 @@
+menu_node:
+    form:
+        attributes_label: Atributos:
+        label_label: Etiqueta:
+        link_type_label: Tipo de vínculo:
+        link_type_choices:
+            uri: URI
+            content: Contenido
+            route: Ruta
+        locale_label: Idioma:
+        name_label: Nombre:
+        parent_label: Menu padre:
+        uri_label: URI:
+        route_label: Ruta:
+        content_label: Contenido:
+        content_class_label: Tipo de contenido:
+        icon_class_label: Icono
+        icon_class_class_label: Class
+        display_label: Mostrar
+        display_children_label: Mostrar submenús
+        publishable_label: Publicado
+        publish_start_label: Publicar a partir de:
+        publish_end_label: Despublicar en:
+        children_attributes_label: Attributos de lista:
+        link_attributes_label: Attributos de vínculo
+        label_attributes_label: Attributos de etiqueta
+chosen:
+    form:
+        select_option: Seleccione un contenido
+es: Español
+en: Inglés
+fr: Francés

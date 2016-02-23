@@ -1,0 +1,3 @@
+positibe_orm_menu_content_class:
+    path: /positibe-menu-content-class
+    defaults: {_controller: PositibeOrmMenuBundle:Content:index }
