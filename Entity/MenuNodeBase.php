@@ -12,7 +12,6 @@ namespace Positibe\Bundle\OrmMenuBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Sluggable\Util\Urlizer;
 use Knp\Menu\NodeInterface;
 use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
 use Positibe\Bundle\OrmMenuBundle\Model\MenuNode;
@@ -40,7 +39,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\MappedSuperclass
  * @Gedmo\TranslationEntity(class="Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeTranslation")
- * @ORM\EntityListeners({"Positibe\Bundle\OrmMenuBundle\EventListener\ContentAwareListener"})
  *
  * Class MenuNode
  * @package Positibe\Bundle\OrmMenuBundle\Entity
