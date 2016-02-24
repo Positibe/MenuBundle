@@ -21,5 +21,5 @@ use Positibe\Component\ContentAware\Model\ContentAwareRepositoryInterface;
  */
 interface HasMenuRepositoryInterface extends ContentAwareRepositoryInterface
 {
-    public function findOneByMenuNodes(MenuNodeInterface $menuNode);
+    public function findOneByMenuNodesName($menuNodeName);
 }

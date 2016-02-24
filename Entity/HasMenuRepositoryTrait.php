@@ -10,8 +10,6 @@
 
 namespace Positibe\Bundle\OrmMenuBundle\Entity;
 
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
-
 /**
  * Class HasMenuRepositoryTrait
  * @package Positibe\Bundle\OrmMenuBundle\Entity
@@ -20,16 +18,12 @@ use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
  */
 trait HasMenuRepositoryTrait
 {
-    /**
-     * @param MenuNodeInterface $menuNode
-     * @return mixed
-     */
-    public function findOneByMenuNodes(MenuNodeInterface $menuNode)
+    public function findOneByMenuNodesName($menuNodeName)
     {
-        $qb = $this->createQueryBuilder('c')
-            ->join('c.menuNodes', 'm')
-            ->where('m = :menu')
-            ->setParameter('menu', $menuNode);
+        $qb = $this->createQueryBuilder('o')
+            ->join('o.menuNodes', 'm')
+            ->where('m.name = :menu')
+            ->setParameter('menu', $menuNodeName);
 
         $query = $qb->getQuery();
 
