@@ -11,18 +11,18 @@ namespace Positibe\Bundle\OrmMenuBundle\Menu\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\ORM\Mapping\MappingException;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\NodeInterface;
 use Knp\Menu\MenuItem;
-
+use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
 use Positibe\Bundle\OrmMenuBundle\Event\CreateMenuItemFromNodeEvent;
 use Positibe\Bundle\OrmMenuBundle\Voter\VoterInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableReadInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -62,6 +62,8 @@ class ContentAwareFactory extends MenuFactory
         self::LINK_TYPE_ROOT
     );
 
+    protected $menuNodeClass;
+
     /**
      * List of priority => array of VoterInterface
      *
@@ -91,16 +93,19 @@ class ContentAwareFactory extends MenuFactory
      * @param RouterInterface $router
      * @param EntityManager $manager
      * @param PublishWorkflowChecker $publishWorkflowChecker
+     * @param $menuNodeClass
      */
     public function __construct(
         RouterInterface $router,
         EntityManager $manager,
-        PublishWorkflowChecker $publishWorkflowChecker
+        PublishWorkflowChecker $publishWorkflowChecker,
+        $menuNodeClass
     ) {
         parent::__construct();
         $this->router = $router;
         $this->manager = $manager;
         $this->publishWorkflowChecker = $publishWorkflowChecker;
+        $this->menuNodeClass = $menuNodeClass;
     }
 
     /**
@@ -215,6 +220,8 @@ class ContentAwareFactory extends MenuFactory
                 break;
             case 'content':
                 try {
+                    $options = $this->loadContent($options, $name);
+
                     if ($options['content'] instanceof PublishableReadInterface &&
                         !$this->publishWorkflowChecker->isGranted(
                             PublishWorkflowChecker::VIEW_ATTRIBUTE,
@@ -383,12 +390,20 @@ class ContentAwareFactory extends MenuFactory
         return $item;
     }
 
-    /**
-     * @param $className
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getContentRepositoryByMenu($className)
+    protected function loadContent($options, $name)
     {
-        return $this->manager->getRepository($className);
+        if ($options['content'] === null) {
+            try {
+                $repository = $this->manager->getRepository($options['contentClass']);
+                if ($repository instanceof HasMenuRepositoryInterface &&
+                    $content = $repository->findOneByMenuNodesName($name)
+                ) {
+                    $options['content'] = $content;
+                }
+            } catch (MappingException $e) {
+            }
+        }
+
+        return $options;
     }
 }
