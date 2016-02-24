@@ -13,6 +13,7 @@ namespace Positibe\Bundle\OrmMenuBundle\Menu\Provider;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
+use Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeRepositoryInterface;
 use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
 
 
@@ -24,8 +25,10 @@ use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
  */
 class OrmMenuProvider implements MenuProviderInterface
 {
-    private $factory = null;
-
+    /**
+     * @var ContentAwareFactory
+     */
+    private $factory;
     private $manager;
     private $menuNodeClass;
 
@@ -52,7 +55,12 @@ class OrmMenuProvider implements MenuProviderInterface
      */
     public function get($name, array $options = array())
     {
-        $menu = $this->manager->getRepository($this->menuNodeClass)->findOneByName($name);
+        /** @var MenuNodeRepositoryInterface $repository */
+        if (!$repository = $this->manager->getRepository($this->menuNodeClass)) {
+            return null;
+        }
+
+        $menu = $repository->findOneByName($name);
 
         if ($menu === null) {
             return $this->factory->createItem('');
