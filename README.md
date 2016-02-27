@@ -206,7 +206,7 @@ Entity Repositories
     use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
     use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryTrait;
 
-    class StaticContentRepository extends EntityRepository implements HasMenuRepositoryInterface
+    class PostRepository extends EntityRepository implements HasMenuRepositoryInterface
     {
         use HasMenuRepositoryTrait;
     }
