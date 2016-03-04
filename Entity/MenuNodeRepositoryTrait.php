@@ -11,6 +11,7 @@
 namespace Positibe\Bundle\OrmMenuBundle\Entity;
 
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
 
 /**
@@ -21,6 +22,11 @@ use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
  */
 trait MenuNodeRepositoryTrait
 {
+    public function getQuery(QueryBuilder $qb)
+    {
+        return $qb->getQuery();
+    }
+
     /**
      * @param $name
      * @param int $level
@@ -42,12 +48,7 @@ trait MenuNodeRepositoryTrait
             $level--;
         }
 
-        $query = $qb->getQuery();
-
-//        $query->setHint(
-//            Query::HINT_CUSTOM_OUTPUT_WALKER,
-//            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
-//        );
+        $query = $this->getQuery($qb);
 
         return $query->getOneOrNullResult();
     }
