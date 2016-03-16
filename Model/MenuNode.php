@@ -19,7 +19,8 @@ use Knp\Menu\NodeInterface;
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
-class MenuNode implements NodeInterface {
+class MenuNode implements NodeInterface
+{
 
     /**
      * Node name.
@@ -164,7 +165,7 @@ class MenuNode implements NodeInterface {
      */
     public function getLabel()
     {
-        return $this->label;
+        return $this->label ? $this->label : '';
     }
 
     /**
@@ -176,7 +177,7 @@ class MenuNode implements NodeInterface {
      */
     public function setLabel($label)
     {
-        $this->label = $label;
+        $this->label = $label ? $label : '';
 
         return $this;
     }
@@ -256,7 +257,7 @@ class MenuNode implements NodeInterface {
     /**
      * Return the given attribute, optionally specifying a default value
      *
-     * @param string $name    The name of the attribute to return
+     * @param string $name The name of the attribute to return
      * @param string $default The value to return if the attribute doesn't exist
      *
      * @return string
@@ -273,7 +274,7 @@ class MenuNode implements NodeInterface {
     /**
      * Set the named attribute
      *
-     * @param string $name  attribute name
+     * @param string $name attribute name
      * @param string $value attribute value
      *
      * @return MenuNode - this instance

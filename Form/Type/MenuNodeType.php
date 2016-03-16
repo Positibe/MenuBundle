@@ -65,7 +65,8 @@ class MenuNodeType extends AbstractType
                 null,
                 array(
                     'label' => 'menu_node.form.label_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle'
+                    'translation_domain' => 'PositibeOrmMenuBundle',
+                    'required' => false
                 )
             )
             ->add(

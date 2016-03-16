@@ -45,7 +45,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
-abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface {
+abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface
+{
     use ContentAwareTrait;
     use PublishableTrait;
     use PublishTimePeriodTrait;
@@ -295,7 +296,9 @@ abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface {
             $content->addMenuNode($this);
         }
         $this->content = $content;
-        if(is_object($content)) $this->setContentClassByContent($content);
+        if (is_object($content)) {
+            $this->setContentClassByContent($content);
+        }
     }
 
     /**
@@ -378,16 +381,24 @@ abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface {
     {
         $this->locale = $locale;
     }
+    /**
+     * Whether this menu node can be displayed, meaning it is set to display
+     * and it does have a non-empty label or non-empty icon class.
+     *
+     * @return boolean
+     */
+    public function isDisplayable()
+    {
+        return $this->getDisplay() && ($this->getLabel() || $this->getIconClass());
+    }
 
     /**
      * {@inheritDoc}
      */
     public function getOptions()
     {
-        $options = parent::getOptions();
-
         return array_merge(
-            $options,
+            parent::getOptions(),
             array(
                 'linkType' => $this->linkType,
                 'content' => $this->getContent(),
