@@ -8,6 +8,7 @@ services:
           - @positibe_orm_menu.menu_factory
           - @doctrine.orm.entity_manager
           - %positibe.menu_node.class%
+          - @request_stack
         tags:
           - { name: knp_menu.provider }
 

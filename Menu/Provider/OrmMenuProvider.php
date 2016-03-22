@@ -15,6 +15,7 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeRepositoryInterface;
 use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 
 /**
@@ -31,17 +32,31 @@ class OrmMenuProvider implements MenuProviderInterface
     private $factory;
     private $manager;
     private $menuNodeClass;
+    /**
+     * @var RequestStack
+     */
+    private $request;
+
+    /**
+     * @param mixed $request
+     */
+    public function setRequest(RequestStack $request)
+    {
+        $this->request = $request;
+    }
 
     /**
      * @param FactoryInterface $factory the menu factory used to create the menu item
      * @param EntityManager $manager
      * @param $menuNodeClass
+     * @param RequestStack $requestStack
      */
-    public function __construct(FactoryInterface $factory, EntityManager $manager, $menuNodeClass)
+    public function __construct(FactoryInterface $factory, EntityManager $manager, $menuNodeClass, RequestStack $requestStack)
     {
         $this->factory = $factory;
         $this->manager = $manager;
         $this->menuNodeClass = $menuNodeClass;
+        $this->setRequest($requestStack);
     }
 
     /**
@@ -58,6 +73,10 @@ class OrmMenuProvider implements MenuProviderInterface
         /** @var MenuNodeRepositoryInterface $repository */
         if (!$repository = $this->manager->getRepository($this->menuNodeClass)) {
             return null;
+        }
+
+        if (method_exists($repository, 'setLocale')) {
+            $repository->setLocale($this->request->getMasterRequest()->getLocale());
         }
 
         $menu = $repository->findOneByName($name);
