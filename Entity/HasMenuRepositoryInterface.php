@@ -10,7 +10,6 @@
 
 namespace Positibe\Bundle\OrmMenuBundle\Entity;
 
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
 use Positibe\Component\ContentAware\Model\ContentAwareRepositoryInterface;
 
 /**
