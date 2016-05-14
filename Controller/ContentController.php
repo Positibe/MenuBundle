@@ -26,7 +26,7 @@ class ContentController extends Controller
     {
         $class = $request->get('contentClass');
         $form = $this->createForm(
-            'genemu_jquerychosen_entity',
+            'entity',
             null,
             array(
                 'attr' => array(

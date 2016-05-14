@@ -44,7 +44,7 @@ class ContentFieldListener implements EventSubscriberInterface
         if ($menu && $menu->getLinkType() === ContentAwareFactory::LINK_TYPE_CONTENT && $menu->getContentClass()) {
             $form->add(
                 'content',
-                'genemu_jquerychosen_entity',
+                'entity',
                 array(
                     'class' => $menu->getContentClass(),
                     'attr' => array('class' => 'chosen-select'),
