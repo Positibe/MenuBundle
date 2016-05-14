@@ -5,7 +5,7 @@
     "keywords": ["cmf","block", "positibe", "positibelabs"],
     "homepage": "http://positibelabs.blogspot.com/bundles/media",
     "license": "Private",
-    "version": "0.3.0.1",
+    "version": "0.3.1.0",
     "authors": [
         {
             "name": "Pedro Carlos Abreu Jiménez",
@@ -25,7 +25,6 @@
         "positibe/content-aware": "~0.1",
         "positibe/publishable": "~0.1",
         "doctrine/orm": "~2.4"
-
     },
     "autoload": {
         "psr-4": { "Positibe\\Bundle\\OrmMenuBundle\\": "" }
