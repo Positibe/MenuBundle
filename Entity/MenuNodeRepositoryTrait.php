@@ -22,11 +22,6 @@ use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
  */
 trait MenuNodeRepositoryTrait
 {
-    public function getQuery(QueryBuilder $qb)
-    {
-        return $qb->getQuery();
-    }
-
     /**
      * @param $name
      * @param int $level
