@@ -8,16 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Model;
+namespace Positibe\Bundle\MenuBundle\Model;
 
 use Knp\Menu\NodeInterface;
+use Positibe\Bundle\OrmContentBundle\Entity\MenuNode;
 
 /**
  * Interface to be implemented by content that exposes editable menu referrers.
  * This is used with the Sonata MenuAwareExtension.
  *
  * Interface MenuNodeReferrersInterface
- * @package Positibe\Bundle\OrmMenuBundle\Model
+ * @package Positibe\Bundle\MenuBundle\Model
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -26,21 +27,21 @@ interface MenuNodeReferrersInterface
     /**
      * Get all menu nodes that point to this content.
      *
-     * @return NodeInterface[] Menu nodes that point to this content
+     * @return NodeInterface[]|MenuNode[] Menu nodes that point to this content
      */
     public function getMenuNodes();
 
     /**
      * Add a menu node for this content.
      *
-     * @param NodeInterface $menu
+     * @param NodeInterface|MenuNode $menu
      */
     public function addMenuNode(NodeInterface $menu);
 
     /**
      * Remove a menu node for this content.
      *
-     * @param NodeInterface $menu
+     * @param NodeInterface|MenuNode $menu
      */
     public function removeMenuNode(NodeInterface $menu);
 

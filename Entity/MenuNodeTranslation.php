@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
 
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class MenuNodeTranslation
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @ORM\Table(name="positibe_menu_translations", indexes={
  *      @ORM\Index(name="positibe_menu_translation_idx", columns={"locale", "object_class", "field", "foreign_key"})

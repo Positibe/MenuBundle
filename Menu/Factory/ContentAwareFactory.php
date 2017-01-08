@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Positibe\Bundle\OrmMenuBundle\Menu\Factory;
+namespace Positibe\Bundle\MenuBundle\Menu\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityNotFoundException;
@@ -16,9 +16,9 @@ use Knp\Menu\MenuFactory;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\NodeInterface;
 use Knp\Menu\MenuItem;
-use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
-use Positibe\Bundle\OrmMenuBundle\Event\CreateMenuItemFromNodeEvent;
-use Positibe\Bundle\OrmMenuBundle\Voter\VoterInterface;
+use Positibe\Bundle\MenuBundle\Entity\HasMenuRepositoryInterface;
+use Positibe\Bundle\MenuBundle\Event\CreateMenuItemFromNodeEvent;
+use Positibe\Bundle\MenuBundle\Voter\VoterInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableReadInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -36,7 +36,7 @@ use Symfony\Component\Routing\RouterInterface;
  * is the current item.
  *
  * Class ContentAwareFactory
- * @package Positibe\Bundle\OrmMenuBundle\Menu\Factory
+ * @package Positibe\Bundle\MenuBundle\Menu\Factory
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

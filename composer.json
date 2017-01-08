@@ -1,11 +1,11 @@
 {
-    "name": "positibe/orm-menu-bundle",
+    "name": "positibe/menu-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony PositibeOrmMenuBundle",
+    "description": "Symfony PositibeMenuBundle",
     "keywords": ["cmf","block", "positibe", "positibelabs"],
-    "homepage": "http://positibelabs.blogspot.com/bundles/media",
+    "homepage": "http://positibelabs.com/bundles/media",
     "license": "MIT",
-    "version": "0.4.1.0",
+    "version": "1.0.0-beta1",
     "authors": [
         {
             "name": "Pedro Carlos Abreu Jiménez",
@@ -13,25 +13,25 @@
             "homepage": "https://github.com/pcabreus"
         },
         {
-            "name": "PositibeLabs Cooperative",
+            "name": "PositibeLabs",
             "homepage": "https://github.com/positibelabs"
         }
     ],
     "require": {
-        "symfony/framework-bundle": "~2.7",
-        "gedmo/doctrine-extensions": "~2.3",
+        "symfony/framework-bundle": "~2.7|~3.0",
+        "gedmo/doctrine-extensions": "~2.4",
         "knplabs/knp-menu-bundle": "~2.0",
-        "symfony-cmf/core-bundle": "~1.2",
+        "symfony-cmf/core-bundle": "~1.3",
         "positibe/content-aware": "~0.1",
         "positibe/publishable": "~0.1",
-        "doctrine/orm": "~2.4"
+        "doctrine/orm": "~2.5"
     },
     "autoload": {
-        "psr-4": { "Positibe\\Bundle\\OrmMenuBundle\\": "" }
+        "psr-4": { "Positibe\\Bundle\\MenuBundle\\": "" }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.4.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }

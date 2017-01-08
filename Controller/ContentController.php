@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Controller;
+namespace Positibe\Bundle\MenuBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ContentController
- * @package Positibe\Bundle\OrmMenuBundle\Controller
+ * @package Positibe\Bundle\MenuBundle\Controller
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -38,12 +38,12 @@ class ContentController extends Controller
                 'required' => false,
                 'label'=> 'menu_node.form.content_label',
                 'placeholder' => 'chosen.form.select_option',
-                'translation_domain' => 'PositibeOrmMenuBundle'
+                'translation_domain' => 'PositibeMenuBundle'
             )
         );
 
         return $this->render(
-            'PositibeOrmMenuBundle::_form_widget.html.twig',
+            'PositibeMenuBundle::_form_widget.html.twig',
             array(
                 'form' => $form->createView()
             )

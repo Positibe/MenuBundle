@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
+use Positibe\Bundle\MenuBundle\Model\MenuNodeInterface;
 
 /**
  * Class MenuNodeRepositoryTrait
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -31,6 +31,7 @@ trait MenuNodeRepositoryTrait
     public function findOneByName($name, $level = 1)
     {
         $alias = 'mc';
+        /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('m')->where('m.name = :name')->setParameter('name', $name)
             ->leftJoin('m.children', $alias)
             ->addSelect($alias)

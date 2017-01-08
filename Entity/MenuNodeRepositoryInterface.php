@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
 
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
+use Positibe\Bundle\MenuBundle\Model\MenuNodeInterface;
 
 /**
  * Interface MenuNodeRepositoryInterface
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

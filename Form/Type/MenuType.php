@@ -1,11 +1,11 @@
 <?php
 
-namespace Positibe\Bundle\OrmMenuBundle\Form\Type;
+namespace Positibe\Bundle\MenuBundle\Form\Type;
 
-use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MenuType extends AbstractType
 {
@@ -28,7 +28,7 @@ class MenuType extends AbstractType
                 null,
                 array(
                     'label' => 'menu_node.form.name_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle'
+                    'translation_domain' => 'PositibeMenuBundle'
                 )
             )
             ->add(
@@ -65,14 +65,14 @@ class MenuType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
                 'data_class' => $this->menuNodeClass,
-                'translation_domain' => 'PositibeOrmMenuBundle'
+                'translation_domain' => 'PositibeMenuBundle'
             )
         );
     }

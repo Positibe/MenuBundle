@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Model;
+namespace Positibe\Bundle\MenuBundle\Model;
 
 use Knp\Menu\NodeInterface;
 
@@ -16,7 +16,7 @@ use Knp\Menu\NodeInterface;
  * Provide access to read and write the menu options.
  *
  * Interface MenuOptionsInterface
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Model;
+namespace Positibe\Bundle\MenuBundle\Model;
 
 use Knp\Menu\NodeInterface;
 use Positibe\Component\ContentAware\Model\ContentAwareInterface;
@@ -20,7 +20,7 @@ use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 
 /**
  * Interface MenuNodeInterface
- * @package Positibe\Bundle\OrmMenuBundle\Model
+ * @package Positibe\Bundle\MenuBundle\Model
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Knp\Menu\NodeInterface;
-use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNode;
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeInterface;
-use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface;
+use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Model\MenuNode;
+use Positibe\Bundle\MenuBundle\Model\MenuNodeInterface;
+use Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
 use Positibe\Component\ContentAware\Entity\ContentAwareTrait;
 use Positibe\Component\Publishable\Entity\PublishableTrait;
 use Positibe\Component\Publishable\Entity\PublishTimePeriodTrait;
@@ -38,10 +38,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * - Publish Workflow
  *
  * @ORM\MappedSuperclass
- * @Gedmo\TranslationEntity(class="Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeTranslation")
+ * @Gedmo\TranslationEntity(class="Positibe\Bundle\MenuBundle\Entity\MenuNodeTranslation")
  *
  * Class MenuNode
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -230,15 +230,6 @@ abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface
     protected $iconClass;
 
     /**
-     * @param null $name
-     */
-    public function __construct($name = null)
-    {
-        $this->name = $name;
-        $this->children = new ArrayCollection();
-    }
-
-    /**
      * @return string
      */
     public function __toString()
@@ -285,17 +276,18 @@ abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface
      */
     public function setContent($content)
     {
-        if ($this->content) {
+        /** @var MenuNodeReferrersInterface $currentContent */
+        if ($currentContent = $this->getContent()) {
             $newList = new ArrayCollection();
-            foreach ($this->content->getMenuNodes() as $menus) {
+            foreach ($currentContent->getMenuNodes() as $menus) {
                 if ($menus->getId() !== $this->getId()) {
                     $newList[] = $menus;
                 }
             }
-            $this->content->setMenuNodes($newList);
+            $currentContent->setMenuNodes($newList);
             $content->addMenuNode($this);
         }
-        $this->content = $content;
+        $this->setContent($content);
         if (is_object($content)) {
             $this->setContentClassByContent($content);
         }

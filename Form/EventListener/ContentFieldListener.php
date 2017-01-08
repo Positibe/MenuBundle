@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Form\EventListener;
+namespace Positibe\Bundle\MenuBundle\Form\EventListener;
 
-use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\OrmContentBundle\Entity\MenuNode;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\FormEvents;
 
 /**
  * Class ContentFieldListener
- * @package Positibe\Bundle\OrmMenuBundle\Form\EventListener
+ * @package Positibe\Bundle\MenuBundle\Form\EventListener
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -51,7 +52,7 @@ class ContentFieldListener implements EventSubscriberInterface
                     'required' => false,
                     'label' => 'menu_node.form.content_label',
                     'placeholder' => 'chosen.form.select_option',
-                    'translation_domain' => 'PositibeOrmMenuBundle'
+                    'translation_domain' => 'PositibeMenuBundle'
                 )
             );
         } else {
@@ -63,7 +64,7 @@ class ContentFieldListener implements EventSubscriberInterface
                         'disabled' => 'disabled'
                     ),
                     'label' => 'menu_node.form.content_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle'
+                    'translation_domain' => 'PositibeMenuBundle'
                 )
             );
         }
@@ -101,6 +102,7 @@ class ContentFieldListener implements EventSubscriberInterface
      */
     public function postSubmit(FormEvent $event)
     {
+        /** @var MenuNode $menu */
         $menu = $event->getData();
         if ($menu->getLinkType() === ContentAwareFactory::LINK_TYPE_CONTENT && $menu->getContent()) {
             $isNew = true;

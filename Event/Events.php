@@ -1,6 +1,6 @@
 <?php
 
-namespace Positibe\Bundle\OrmMenuBundle\Event;
+namespace Positibe\Bundle\MenuBundle\Event;
 
 final class Events
 {

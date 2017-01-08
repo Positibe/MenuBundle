@@ -1,16 +1,16 @@
 <?php
 
-namespace Positibe\Bundle\OrmMenuBundle\Form\Type;
+namespace Positibe\Bundle\MenuBundle\Form\Type;
 
-use Positibe\Bundle\OrmMenuBundle\Form\EventListener\ContentFieldListener;
-use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Form\EventListener\ContentFieldListener;
+use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class MenuNodeType
- * @package Positibe\Bundle\OrmMenuBundle\Form\Type
+ * @package Positibe\Bundle\MenuBundle\Form\Type
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -65,7 +65,7 @@ class MenuNodeType extends AbstractType
                 null,
                 array(
                     'label' => 'menu_node.form.label_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle',
+                    'translation_domain' => 'PositibeMenuBundle',
                     'required' => false
                 )
             )
@@ -75,7 +75,7 @@ class MenuNodeType extends AbstractType
                 array(
                     'choices' => array_combine($this->locales, $this->locales),
                     'label' => 'menu_node.form.locale_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle'
+                    'translation_domain' => 'PositibeMenuBundle'
                 )
             )
             ->add(
@@ -122,7 +122,7 @@ class MenuNodeType extends AbstractType
                         ContentAwareFactory::LINK_TYPE_CONTENT => 'menu_node.form.link_type_choices.content',
                     ),
                     'label' => 'menu_node.form.link_type_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle'
+                    'translation_domain' => 'PositibeMenuBundle'
                 )
             )
             ->add(
@@ -130,7 +130,7 @@ class MenuNodeType extends AbstractType
                 null,
                 array(
                     'label' => 'menu_node.form.uri_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle',
+                    'translation_domain' => 'PositibeMenuBundle',
                     'required' => false
                 )
             )
@@ -139,7 +139,7 @@ class MenuNodeType extends AbstractType
                 'choice',
                 array(
                     'label' => 'menu_node.form.route_label',
-                    'translation_domain' => 'PositibeOrmMenuBundle',
+                    'translation_domain' => 'PositibeMenuBundle',
                     'choices' => array_combine($this->publicRoutes, $this->publicRoutes),
                     'required' => false
                 )
@@ -180,7 +180,7 @@ class MenuNodeType extends AbstractType
 //                'sonata_type_immutable_array',
 //                array(
 //                    'label' => 'menu_node.form.attributes_label',
-//                    'translation_domain' => 'PositibeOrmMenuBundle',
+//                    'translation_domain' => 'PositibeMenuBundle',
 //                    'keys' => array(
 //                        array('id',      'text', array('required' => false)),
 //                        array('class',   'text',  array('required' => false)),
@@ -204,14 +204,14 @@ class MenuNodeType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
                 'data_class' => $this->menuNodeClass,
-                'translation_domain' => 'PositibeOrmMenuBundle'
+                'translation_domain' => 'PositibeMenuBundle'
             )
         );
     }

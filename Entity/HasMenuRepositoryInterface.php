@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
 
 use Positibe\Component\ContentAware\Model\ContentAwareRepositoryInterface;
 

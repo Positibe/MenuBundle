@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
 
 /**
  * Class MenuNodeRepository
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

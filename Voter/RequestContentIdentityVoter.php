@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Voter;
+namespace Positibe\Bundle\MenuBundle\Voter;
 
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;

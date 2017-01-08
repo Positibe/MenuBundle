@@ -1,8 +1,8 @@
 <?php
 
-namespace Positibe\Bundle\OrmMenuBundle\PublishWorkflow;
+namespace Positibe\Bundle\MenuBundle\PublishWorkflow;
 
-use Positibe\Bundle\OrmMenuBundle\Event\CreateMenuItemFromNodeEvent;
+use Positibe\Bundle\MenuBundle\Event\CreateMenuItemFromNodeEvent;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Positibe\Bundle\OrmMenuBundle\DependencyInjection;
+namespace Positibe\Bundle\MenuBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -25,7 +25,7 @@ class PositibeOrmMenuExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->getDefinition('positibe_orm_menu.menu_node_form_type')
+        $container->getDefinition('positibe_menu.menu_node_form_type')
             ->addMethodCall('setContentClass', array($config['content_class']))
             ->addMethodCall('setPublicRoutes', array($config['public_routes']));
 

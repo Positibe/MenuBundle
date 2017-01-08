@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\PublishWorkflow\Voter;
+namespace Positibe\Bundle\MenuBundle\PublishWorkflow\Voter;
 
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,7 +49,7 @@ class MenuContentVoter implements VoterInterface
      */
     public function supportsClass($class)
     {
-        return is_subclass_of($class, 'Positibe\Bundle\OrmMenuBundle\Entity\MenuNode');
+        return is_subclass_of($class, 'Positibe\Bundle\MenuBundle\Entity\MenuNode');
     }
 
     /**

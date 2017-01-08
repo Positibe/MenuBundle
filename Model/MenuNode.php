@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Model;
+namespace Positibe\Bundle\MenuBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Knp\Menu\NodeInterface;
 
 /**
  * Class MenuNode
- * @package Positibe\Bundle\OrmMenuBundle\Model
+ * @package Positibe\Bundle\MenuBundle\Model
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

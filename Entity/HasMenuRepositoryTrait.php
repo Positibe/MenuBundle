@@ -8,11 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Entity;
+namespace Positibe\Bundle\MenuBundle\Entity;
+
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class HasMenuRepositoryTrait
- * @package Positibe\Bundle\OrmMenuBundle\Entity
+ * @package Positibe\Bundle\MenuBundle\Entity
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
@@ -20,6 +22,7 @@ trait HasMenuRepositoryTrait
 {
     public function findOneByMenuNodesName($menuNodeName)
     {
+        /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('o')
             ->join('o.menuNodes', 'm')
             ->where('m.name = :menu')

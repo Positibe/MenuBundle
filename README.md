@@ -1,7 +1,7 @@
-PositibeOrmMenuBundle
-=====================
+PositibeMenuBundle
+==================
 
-This bundle provide a Orm Provider to use KnpMenuBundle with menus loaded from database.
+This bundle provide a Orm Provider to use KnpMenuBundle with menus loaded from database and it's inspired by Symfony-Cmf MenuBundle.
 
 Installation
 ------------
@@ -17,11 +17,11 @@ Next, be sure to enable the bundles in your application kernel:
     public function registerBundles()
     {
         return array(
-            // Dependency (check that you don't already have this line)
+            // Dependency (check if you already have this bundle included)
             new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
             // Vendor specifics bundles
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Positibe\Bundle\OrmMenuBundle\PositibeOrmMenuBundle(),
+            new Positibe\Bundle\MenuBundle\PositibeMenuBundle(),
 
             // ...
         );
@@ -34,19 +34,19 @@ Import all necessary configurations to your app/config/config.yml the basic conf
 
     # app/config/config.yml
     imports:
-        - { resource: @PositibeOrmMenuBundle/Resources/config/config.yml }
+        - { resource: @PositibeMenuBundle/Resources/config/config.yml }
         # - { resource: @PositibeCmfBundle/Resources/config/sylius/menu.yml } #If you have PositibeCmfBundle installed
 
-    positibe_orm_menu:
+    positibe_menu:
         public_routes: # e.g. [homepage, my-company]  List of public symfony routes available.
         content_class: # e.g. [ AppBundle\Entity\Post, AppBundle\Entity\Category ] List of content that extend of MenuNodeReferralInterface.
 
     parameters:
         locales: [es, en, fr] # Maybe you already have it configured
 
-To display a human name of content class, you need to translate this class name on the PositibeOrmMenuBundle domain:
+To display a human name of content class, you need to translate this class name on the PositibeMenuBundle domain:
 
-    # app/Resources/translations/PositibeOrmMenuBundle.{es|<locales>}.yml
+    # app/Resources/translations/PositibeMenuBundle.{es|<locales>}.yml
     AppBundle\Entity\Post: Artículo
     AppBundle\Entity\Category: Categoría
 
@@ -54,8 +54,8 @@ And finally load the routing to use the form `MenuNodeType` correctly:
 
     # app/config/routing.yml
     # ... others routings
-    positibe_orm_menu:
-        resource: "@PositibeOrmMenuBundle/Resources/config/routing.yml"
+    positibe_menu:
+        resource: "@PositibeMenuBundle/Resources/config/routing.yml"
 
     # If you have PositibeCmfBundle installed and want you admin your menus:
     # positibe_admin_menu:
@@ -75,17 +75,17 @@ Remember to update the schema:
 Using
 -----
 
-An entity that has menus must implement `Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface`.
+An entity that has menus must implement `Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface`.
 
-Add to any entity you want the relation with `Positibe\Bundle\OrmMenuBundle\Entity\MenuNode`:
+Add to any entity you want the relation with `Positibe\Bundle\MenuBundle\Entity\MenuNode`:
 
     <?php
     // src/AppBundle/Entity/Post.php
     namespace AppBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
-    use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface;
-    use Positibe\Bundle\OrmMenuBundle\Entity\MenuNode;
+    use Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
+    use Positibe\Bundle\MenuBundle\Entity\MenuNode;
     use Doctrine\ORM\Mapping as ORM;
 
     /**
@@ -98,7 +98,7 @@ Add to any entity you want the relation with `Positibe\Bundle\OrmMenuBundle\Enti
         /**
          * @var MenuNode[]|ArrayCollection
          *
-         * @ORM\ManyToMany(targetEntity="Positibe\Bundle\OrmMenuBundle\Entity\MenuNode", orphanRemoval=TRUE, cascade="all")
+         * @ORM\ManyToMany(targetEntity="Positibe\Bundle\MenuBundle\Entity\MenuNode", orphanRemoval=TRUE, cascade="all")
          * @ORM\JoinTable(name="app_post_menus")
          */
         protected $menuNodes;
@@ -141,15 +141,15 @@ Add to any entity you want the relation with `Positibe\Bundle\OrmMenuBundle\Enti
         }
     }
 
-**Tip:** You can use `Positibe\Bundle\OrmMenuBundle\Entity\HasMenusTrait` to simplify the implementation of MenuNodeReferrersInterface methods.
+**Tip:** You can use `Positibe\Bundle\MenuBundle\Entity\HasMenusTrait` to simplify the implementation of MenuNodeReferrersInterface methods.
 
     <?php
     // src/AppBundle/Entity/Post.php
     namespace AppBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
-    use Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface;
-    use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuTrait
+    use Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
+    use Positibe\Bundle\MenuBundle\Entity\HasMenuTrait
     use Doctrine\ORM\Mapping as ORM;
 
     /**
@@ -170,14 +170,14 @@ Add to any entity you want the relation with `Positibe\Bundle\OrmMenuBundle\Enti
 Entity Repositories
 -------------------
 
-**Important**: The Repository for your entity must implement `Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface`.
+**Important**: The Repository for your entity must implement `Positibe\Bundle\MenuBundle\Entity\HasMenuRepositoryInterface`.
 
     <?php
     // src/AppBundle/Entity/PostRepository.php
     namespace AppBundle\Entity;
 
     use Doctrine\ORM\EntityRepository;
-    use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
+    use Positibe\Bundle\MenuBundle\Entity\HasMenuRepositoryInterface;
 
     class PostRepository extends EntityRepository implements HasMenuRepositoryInterface
     {
@@ -196,15 +196,15 @@ Entity Repositories
         }
     }
 
-**Tip:** You can use `Positibe\Bundle\OrmMenuBundle\Entity\HasMenusRepositoryTrait` to simplify the implementation of HasMenuRepositoryInterface methods.
+**Tip:** You can use `Positibe\Bundle\MenuBundle\Entity\HasMenusRepositoryTrait` to simplify the implementation of HasMenuRepositoryInterface methods.
 
     <?php
     // src/AppBundle/Entity/PostRepository.php
     namespace AppBundle\Entity;
 
     use Doctrine\ORM\EntityRepository;
-    use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryInterface;
-    use Positibe\Bundle\OrmMenuBundle\Entity\HasMenuRepositoryTrait;
+    use Positibe\Bundle\MenuBundle\Entity\HasMenuRepositoryInterface;
+    use Positibe\Bundle\MenuBundle\Entity\HasMenuRepositoryTrait;
 
     class PostRepository extends EntityRepository implements HasMenuRepositoryInterface
     {
@@ -219,18 +219,18 @@ Creating routes
 ---------------
 
     // Creating a Root Menu that is a container for submenus
-    $menu = new MenuNode(); //Class of `\Positibe\Bundle\OrmMenuBundle\Entity\MenuNode`
+    $menu = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
     $menu->setName('main');
     $menu->setChildrenAttributes(array('class' => 'nav navbar-nav')); //You can set the ul attributes here
 
     // Creating a Route menu, that link to a Symfony Routing o PositibeOrmRoutingBundle routing
-    $menuHomePage = new MenuNode(); //Class of `\Positibe\Bundle\OrmMenuBundle\Entity\MenuNode`
+    $menuHomePage = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
     $menuHomePage->setName('homepage');
     $menuHomePage->setLinkRoute('homepage');
     $menu->addChild($menuHomePage);
 
     //Creating a URI menu, that link to a external or internal full url.
-    $menuExternalUrl = new MenuNode(); //Class of `\Positibe\Bundle\OrmMenuBundle\Entity\MenuNode`
+    $menuExternalUrl = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
     $menuExternalUrl->setName('external');
     $menuExternalUrl->setLinkUri('http://external-link.com');
     $menu->addChild($menuExternalUrl);
@@ -240,11 +240,11 @@ Creating routes
     $manager->flush();
 
     //Creating a Content menu, that link to a content wherever be its routes.
-    $menu = $manager->getRepository('PositibeOrmMenuBundle:MenuNode')->findOneByName('main');
-    $post = new Post(); //Class that implement `Positibe\Bundle\OrmMenuBundle\Model\MenuNodeReferrersInterface`
+    $menu = $manager->getRepository('PositibeMenuBundle:MenuNode')->findOneByName('main');
+    $post = new Post(); //Class that implement `Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface`
     $post->setTitle('Symfony is awesome');
 
-    $menuContent = new MenuNode(); //Class of `\Positibe\Bundle\OrmMenuBundle\Entity\MenuNode`
+    $menuContent = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
     $menuContent->setName(strtolower(str_replace(' ', '-', $new->getTitle())));
     $menuContent->setLinkContent($post);
     $post->addMenuNode($menuContent);

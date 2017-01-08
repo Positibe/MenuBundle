@@ -1,10 +1,10 @@
 <?php
 
-namespace Positibe\Bundle\OrmMenuBundle\Event;
+namespace Positibe\Bundle\MenuBundle\Event;
 
 use Knp\Menu\ItemInterface;
 use Knp\Menu\NodeInterface;
-use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\Event;
  * item.
  *
  * Class CreateMenuItemFromNodeEvent
- * @package Positibe\Bundle\OrmMenuBundle\Event
+ * @package Positibe\Bundle\MenuBundle\Event
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */

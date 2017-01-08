@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Positibe\Bundle\OrmMenuBundle\Menu\Provider;
+namespace Positibe\Bundle\MenuBundle\Menu\Provider;
 
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
-use Positibe\Bundle\OrmMenuBundle\Entity\MenuNodeRepositoryInterface;
-use Positibe\Bundle\OrmMenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Entity\MenuNodeRepositoryInterface;
+use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 
 /**
  * Class OrmMenuProvider
- * @package Positibe\Bundle\OrmMenuBundle\Menu\Provider
+ * @package Positibe\Bundle\MenuBundle\Menu\Provider
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
