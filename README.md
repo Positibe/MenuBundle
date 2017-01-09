@@ -1,14 +1,16 @@
 PositibeMenuBundle
 ==================
 
-This bundle provide a Orm Provider to use KnpMenuBundle with menus loaded from database and it's inspired by Symfony-Cmf MenuBundle.
+This bundle extend KnpMenuBundle to provides entities that can be loaded from database using Doctrine ORM.
+
+It was inspired by Symfony-Cmf MenuBundle.
 
 Installation
 ------------
 
 To install the bundle just add the dependent bundles:
 
-    php composer.phar require positibe/orm-menu-bundle
+    php composer.phar require positibe/menu-bundle
 
 Next, be sure to enable the bundles in your application kernel:
 
