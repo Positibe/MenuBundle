@@ -65,39 +65,41 @@ Remember to update the schema:
 Using link type menus
 ---------------------
 
+    [php]
+    <?php
     // Creating the root menu that is a container for submenus
-    $menu = new MenuNodeBase(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
-    $menu->setName('main');
-    $menu->setChildrenAttributes(array('class' => 'nav navbar-nav')); //You can set the ul attributes here
+    $menu = new MenuNodeBase('footer'); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
+    $menu->setChildrenAttributes(['class' => 'nav navbar-nav']); //You can set the ul attributes here
 
-    // Creating a footer menu
-    $menuHomePage = new MenuNodeBAse(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
-    $menuHomePage->setName('homepage');
+    $manager->persist($menu);
+
+    //Creating an URI menu, that link to a external or internal full url.
+    $menuExternalUrl = new MenuNodeBase('Github'); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
+    $menuExternalUrl->setLinkUri('https://github.com/Positibe/MenuBundle');
+    $menu->addChild($menuExternalUrl);
+
+    $manager->persist($menuExternalUrl);
+
+    // Creating a route menu, that link to a route in the routing configuration of your application
+    $menuHomePage = new MenuNodeBase(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
+    $menuHomePage->setName('homepage'); //You can define a code name to have better control of the menus
+    $menuHomePage->setLabel('Inicio'); //And you can define a proper label to show in the views
     $menuHomePage->setLinkRoute('homepage');
     $menu->addChild($menuHomePage);
 
-    //Creating a URI menu, that link to a external or internal full url.
-    $menuExternalUrl = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
-    $menuExternalUrl->setName('external');
-    $menuExternalUrl->setLinkUri('http://external-link.com');
-    $menu->addChild($menuExternalUrl);
-
-    //Save the parent menu only
-    $manager->persist($menu);
+    $manager->persist($menuHomePage);
     $manager->flush();
 
-    //Creating a Content menu, that link to a content wherever be its routes.
-    $menu = $manager->getRepository('PositibeMenuBundle:MenuNode')->findOneByName('main');
-    $post = new Post(); //Class that implement `Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface`
-    $post->setTitle('Symfony is awesome');
+Translate a menu label
+----------------------
 
-    $menuContent = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
-    $menuContent->setName(strtolower(str_replace(' ', '-', $new->getTitle())));
-    $menuContent->setLinkContent($post);
-    $post->addMenuNode($menuContent);
-    $menuContent->setParent($menu);
+    [php]
+    <?php
+    $menuContact = $manager->getRepository('PositibeMenuBundle:MenuNodeBase')->findOneBy(['name' => 'homepage']);
 
-    $manager->persist($post);
+    $menuContact->setLabel('Inicio'); //Change the label normally
+    $menuContact->setLocale('es'); //Then set the proper locale
+    $manager->persist($menuContact);
     $manager->flush();
 
 Set an entity into a menu

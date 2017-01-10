@@ -10,6 +10,7 @@
 
 namespace Positibe\Bundle\MenuBundle\Entity;
 
+use Doctrine\ORM\QueryBuilder;
 use Positibe\Bundle\MenuBundle\Model\MenuNodeInterface;
 
 /**
@@ -27,4 +28,10 @@ interface MenuNodeRepositoryInterface
      * @throws \Doctrine\ORM\NonUniqueResultException|MenuNodeInterface
      */
     public function findOneByName($name, $level = 1);
+
+    /**
+     * @param QueryBuilder $qb
+     * @return mixed
+     */
+    public function getQuery(QueryBuilder $qb);
 } 
