@@ -133,6 +133,7 @@ class MenuNode implements NodeInterface
     public function __construct($name = null)
     {
         $this->name = $name;
+        $this->label = $name;
         $this->children = new ArrayCollection();
     }
 

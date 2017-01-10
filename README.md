@@ -1,16 +1,14 @@
 PositibeMenuBundle
 ==================
 
-This bundle extend KnpMenuBundle to provides entities that can be loaded from database using Doctrine ORM.
-
-It was inspired by Symfony-Cmf MenuBundle.
+This bundle provide a Orm Provider to use KnpMenuBundle with menus loaded from database and it's inspired by Symfony-Cmf MenuBundle.
 
 Installation
 ------------
 
 To install the bundle just add the dependent bundles:
 
-    php composer.phar require positibe/menu-bundle
+    php composer.phar require positibe/orm-menu-bundle
 
 Next, be sure to enable the bundles in your application kernel:
 
@@ -37,20 +35,19 @@ Import all necessary configurations to your app/config/config.yml the basic conf
     # app/config/config.yml
     imports:
         - { resource: @PositibeMenuBundle/Resources/config/config.yml }
-        # - { resource: @PositibeCmfBundle/Resources/config/sylius/menu.yml } #If you have PositibeCmfBundle installed
 
+    #If you want some advanced configuration
     positibe_menu:
         public_routes: # e.g. [homepage, my-company]  List of public symfony routes available.
         content_class: # e.g. [ AppBundle\Entity\Post, AppBundle\Entity\Category ] List of content that extend of MenuNodeReferralInterface.
 
+    #By default we disabled the `request_listener` in SymfonyCmf Core configuration because we don't use DynamicRouter on this bundles, enable it if you will use it.
+    cmf_core:
+        publish_workflow:
+            request_listener: true # false by default
+
     parameters:
         locales: [es, en, fr] # Maybe you already have it configured
-
-To display a human name of content class, you need to translate this class name on the PositibeMenuBundle domain:
-
-    # app/Resources/translations/PositibeMenuBundle.{es|<locales>}.yml
-    AppBundle\Entity\Post: Artículo
-    AppBundle\Entity\Category: Categoría
 
 And finally load the routing to use the form `MenuNodeType` correctly:
 
@@ -59,23 +56,52 @@ And finally load the routing to use the form `MenuNodeType` correctly:
     positibe_menu:
         resource: "@PositibeMenuBundle/Resources/config/routing.yml"
 
-    # If you have PositibeCmfBundle installed and want you admin your menus:
-    # positibe_admin_menu:
-    #    resource: "@PositibeCmfBundle/Resources/config/routing/menu.yml"
-    #    prefix: /admin
-
-    #positibe_admin_menu_node:
-    #    resource: "@PositibeCmfBundle/Resources/config/routing/menu_node.yml"
-    #    prefix: /admin
-
-**Caution:**: This bundle use the timestampable, sluggable,softdeletable, translatable and sortable extension of GedmoDoctrineExtension. Be sure that you have the listeners for this extensions enable. You can also to use StofDoctrineExtensionBundle.
+**Caution:**: This bundle use the timestampable, sluggable, softdeletable, translatable and sortable extension of GedmoDoctrineExtension. Be sure you already have its listeners enabled. You can also to use StofDoctrineExtensionBundle.
 
 Remember to update the schema:
 
     php app/console doctrine:schema:update --force
 
-Using
------
+Using link type menus
+---------------------
+
+    // Creating the root menu that is a container for submenus
+    $menu = new MenuNodeBase(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
+    $menu->setName('main');
+    $menu->setChildrenAttributes(array('class' => 'nav navbar-nav')); //You can set the ul attributes here
+
+    // Creating a footer menu
+    $menuHomePage = new MenuNodeBAse(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
+    $menuHomePage->setName('homepage');
+    $menuHomePage->setLinkRoute('homepage');
+    $menu->addChild($menuHomePage);
+
+    //Creating a URI menu, that link to a external or internal full url.
+    $menuExternalUrl = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
+    $menuExternalUrl->setName('external');
+    $menuExternalUrl->setLinkUri('http://external-link.com');
+    $menu->addChild($menuExternalUrl);
+
+    //Save the parent menu only
+    $manager->persist($menu);
+    $manager->flush();
+
+    //Creating a Content menu, that link to a content wherever be its routes.
+    $menu = $manager->getRepository('PositibeMenuBundle:MenuNode')->findOneByName('main');
+    $post = new Post(); //Class that implement `Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface`
+    $post->setTitle('Symfony is awesome');
+
+    $menuContent = new MenuNode(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
+    $menuContent->setName(strtolower(str_replace(' ', '-', $new->getTitle())));
+    $menuContent->setLinkContent($post);
+    $post->addMenuNode($menuContent);
+    $menuContent->setParent($menu);
+
+    $manager->persist($post);
+    $manager->flush();
+
+Set an entity into a menu
+-------------------------
 
 An entity that has menus must implement `Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface`.
 
@@ -262,5 +288,12 @@ You only need to use the `knp_menu_render` function in your twig template:
 
     {% app/Resources/views/base.html.twig %}
     {{ knp_menu_render('main') }}
+
+
+To display a human name of content class, you need to translate this class name on the PositibeMenuBundle domain:
+
+    # app/Resources/translations/PositibeMenuBundle.{es|<locales>}.yml
+    AppBundle\Entity\Post: Artículo
+    AppBundle\Entity\Category: Categoría
 
 For more information see the [Symfony Cmf MenuBundle documentation](http://symfony.com/doc/master/cmf/bundles/menu/index.html) and [KnpMenuBundle Documentation](https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md)

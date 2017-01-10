@@ -37,7 +37,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * - Translatable
  * - Publish Workflow
  *
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="positibe_menu")
+ * @ORM\Entity()
  * @Gedmo\TranslationEntity(class="Positibe\Bundle\MenuBundle\Entity\MenuNodeTranslation")
  *
  * Class MenuNode
@@ -45,11 +46,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @author Pedro Carlos Abreu <pcabreus@gmail.com>
  */
-abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface
+class MenuNodeBase extends MenuNode implements MenuNodeInterface
 {
     use ContentAwareTrait;
     use PublishableTrait;
     use PublishTimePeriodTrait;
+
     /**
      * @var integer
      *
@@ -72,14 +74,17 @@ abstract class MenuNodeBase extends MenuNode implements MenuNodeInterface
     /**
      * Parent menu node.
      *
-     * @var MenuNode
+     * @var MenuNodeInterface
+     *
+     * @Gedmo\SortableGroup
+     * @ORM\ManyToOne(targetEntity="Positibe\Bundle\MenuBundle\Model\MenuNodeInterface", inversedBy="children")
      */
     protected $parent;
 
     /**
-     * Child menu nodes
+     * @var MenuNodeInterface[]|Collection
      *
-     * @var Collection
+     * @ORM\OneToMany(targetEntity="Positibe\Bundle\MenuBundle\Model\MenuNodeInterface", mappedBy="parent", cascade={"persist"}, orphanRemoval=TRUE, fetch="EXTRA_LAZY")
      */
     protected $children;
 

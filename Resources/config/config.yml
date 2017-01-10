@@ -7,6 +7,11 @@ knp_menu:
     templating: false # if true, enables the helper for PHP templates
     default_renderer: twig # The renderer to use, list is also available by default
 
-parameters:
-    public_routes:
-    content_class:
+cmf_core:
+    publish_workflow:
+        request_listener: false
+
+doctrine:
+    orm:
+        resolve_target_entities:
+            Positibe\Bundle\MenuBundle\Model\MenuNodeInterface: %positibe.menu_node.class%

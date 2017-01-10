@@ -2,6 +2,7 @@
 
 namespace Positibe\Bundle\MenuBundle\DependencyInjection;
 
+use Positibe\Bundle\MenuBundle\Entity\MenuNodeBase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PositibeOrmMenuExtension extends Extension
+class PositibeMenuExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -29,5 +30,10 @@ class PositibeOrmMenuExtension extends Extension
             ->addMethodCall('setContentClass', array($config['content_class']))
             ->addMethodCall('setPublicRoutes', array($config['public_routes']));
 
+        if (!$menuNodeClass = $config['menu_node_class']) {
+            $menuNodeClass = MenuNodeBase::class;
+        }
+
+        $container->setParameter('positibe.menu_node.class', $menuNodeClass);
     }
 }

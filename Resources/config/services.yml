@@ -1,6 +1,3 @@
-parameters:
-    positibe.menu_node.class: '' #You must create your own MenuNode entity and put the name in your parameters
-
 services:
     positibe_menu.menu_provider:
         class: Positibe\Bundle\MenuBundle\Menu\Provider\OrmMenuProvider

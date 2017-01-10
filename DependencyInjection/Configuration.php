@@ -25,6 +25,9 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
+                ->scalarNode('menu_node_class')
+                    ->defaultValue('')
+                ->end()
                 ->arrayNode('public_routes')
                     ->defaultValue(array())
                     ->prototype('scalar')->end()
