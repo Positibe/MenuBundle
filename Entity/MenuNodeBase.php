@@ -292,7 +292,7 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
             $currentContent->setMenuNodes($newList);
             $content->addMenuNode($this);
         }
-        $this->setContent($content);
+        $this->content = $content;
         if (is_object($content)) {
             $this->setContentClassByContent($content);
         }

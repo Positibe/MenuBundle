@@ -2,34 +2,34 @@ services:
     positibe_menu.menu_provider:
         class: Positibe\Bundle\MenuBundle\Menu\Provider\OrmMenuProvider
         arguments:
-          - @positibe_menu.menu_factory
-          - @doctrine.orm.entity_manager
+          - "@positibe_menu.menu_factory"
+          - "@doctrine.orm.entity_manager"
           - %positibe.menu_node.class%
-          - @request_stack
+          - "@request_stack"
         tags:
           - { name: knp_menu.provider }
 
     positibe_menu.menu_factory:
         class: Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory
         arguments:
-          - @router
-          - @doctrine.orm.entity_manager
-          - @cmf_core.publish_workflow.checker
+          - "@router"
+          - "@doctrine.orm.entity_manager"
+          - "@cmf_core.publish_workflow.checker"
           - %positibe.menu_node.class%
         calls:
-          - [ addCurrentItemVoter, [ @positibe_menu.uri_prefix_voter]]
-#          - [ addCurrentItemVoter, [ @positibe_menu.request_content_identity_voter]]
+          - [ addCurrentItemVoter, [ "@positibe_menu.uri_prefix_voter"]]
+#          - [ addCurrentItemVoter, [ "@positibe_menu.request_content_identity_voter"]]
 
     positibe_menu.menu_content_voter:
         class: Positibe\Bundle\MenuBundle\PublishWorkflow\Voter\MenuContentVoter
-        arguments: [@service_container]
+        arguments: ["@service_container"]
         tags:
             - { name: cmf_published_voter , priority: 30 }
 
     positibe_menu.uri_prefix_voter:
         class: Positibe\Bundle\MenuBundle\Voter\UriPrefixVoter
         calls:
-            - [ setRequest, [@request_stack]]
+            - [ setRequest, ["@request_stack"]]
         tags:
             - { name: cmf_menu.voter }
 
@@ -37,13 +37,13 @@ services:
 #        class: Positibe\Bundle\MenuBundle\Voter\RequestContentIdentityVoter
 #        arguments: ['contentDocument']
 #        calls:
-#            - [ setRequest, [@request_stack]]
+#            - [ setRequest, ["@request_stack"]]
 #        tags:
 #            - { name: cmf_menu.voter }
 
 #    positibe_menu.create_menu_item_from_node_listener:
 #        class: Positibe\Bundle\MenuBundle\PublishWorkflow\CreateMenuItemFromNodeListener
-#        arguments: [@cmf_core.publish_workflow.checker]
+#        arguments: ["@cmf_core.publish_workflow.checker"]
 #        tags:
 #            - { name: kernel.event_listener, event: cmf_menu.create_menu_item_from_node, method: onCreateMenuItemFromNode }
 
