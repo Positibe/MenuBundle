@@ -37,8 +37,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * - Translatable
  * - Publish Workflow
  *
- * @ORM\Table(name="positibe_menu")
- * @ORM\Entity(repositoryClass="Positibe\Bundle\MenuBundle\Entity\MenuNodeRepository")
+ * @ORM\MappedSuperclass
  * @Gedmo\TranslationEntity(class="Positibe\Bundle\MenuBundle\Entity\MenuNodeTranslation")
  *
  * Class MenuNode

@@ -36,4 +36,5 @@ class PositibeMenuExtension extends Extension
 
         $container->setParameter('positibe.menu_node.class', $menuNodeClass);
     }
+
 }

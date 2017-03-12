@@ -13,7 +13,7 @@ namespace Positibe\Bundle\MenuBundle\Menu\Provider;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
-use Positibe\Bundle\MenuBundle\Entity\MenuNodeRepositoryInterface;
+use Positibe\Bundle\MenuBundle\Repository\MenuNodeRepositoryInterface;
 use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 

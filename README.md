@@ -36,6 +36,10 @@ Import all necessary configurations to your app/config/config.yml the basic conf
     imports:
         - { resource: @PositibeMenuBundle/Resources/config/config.yml }
 
+    parameters:
+        # ... order parameters
+        positibe.menu_node.class: Positibe\Bundle\MenuBundle\Doctrine\Orm\MenuNode #The menu class
+
     #If you want some advanced configuration
     positibe_menu:
         public_routes: # e.g. [homepage, my-company]  List of public symfony routes available.
@@ -53,7 +57,7 @@ And finally load the routing to use the form `MenuNodeType` correctly:
 
     # app/config/routing.yml
     # ... others routings
-    positibe_menu:
+    _positibe_menu:
         resource: "@PositibeMenuBundle/Resources/config/routing.yml"
 
 **Caution:**: This bundle use the timestampable, sluggable, softdeletable, translatable and sortable extension of GedmoDoctrineExtension. Be sure you already have its listeners enabled. You can also to use StofDoctrineExtensionBundle.
@@ -67,21 +71,24 @@ Using link type menus
 
     [php]
     <?php
+    $menuClass = $this->container->getParameter('positibe.menu_node.class');
     // Creating the root menu that is a container for submenus
-    $menu = new MenuNodeBase('footer'); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
+    $menu = new $menuClass('footer');
     $menu->setChildrenAttributes(['class' => 'nav navbar-nav']); //You can set the ul attributes here
 
     $manager->persist($menu);
 
     //Creating an URI menu, that link to a external or internal full url.
-    $menuExternalUrl = new MenuNodeBase('Github'); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNode`
+    /** @var \Positibe\Bundle\MenuBundle\Doctrine\Orm\MenuNode $menuExternalUrl */
+    $menuExternalUrl = new $menuClass('Github');
     $menuExternalUrl->setLinkUri('https://github.com/Positibe/MenuBundle');
     $menu->addChild($menuExternalUrl);
 
     $manager->persist($menuExternalUrl); //The menu is configured with cascade persist, so you don't need to do this
 
     // Creating a route menu, that link to a route in the routing configuration of your application
-    $menuHomePage = new MenuNodeBase(); //Class of `\Positibe\Bundle\MenuBundle\Entity\MenuNodeBase`
+    /** @var \Positibe\Bundle\MenuBundle\Doctrine\Orm\MenuNode $menuHomePage */
+    $menuHomePage = new $menuClass();
     $menuHomePage->setName('homepage'); //You can define a code name to have better control of the menus
     $menuHomePage->setLabel('Inicio'); //And you can define a proper label to show in the views
     $menuHomePage->setLinkRoute('homepage');
@@ -96,7 +103,9 @@ Translate a menu label
 
     [php]
     <?php
-    $menuContact = $manager->getRepository('PositibeMenuBundle:MenuNodeBase')->findOneBy(['name' => 'homepage']);
+    $menuClass = $this->container->getParameter('positibe.menu_node.class');
+
+    $menuContact = $manager->getRepository($menuClass)->findOneBy(['name' => 'homepage']);
 
     $menuContact->setLabel('Inicio'); //Change the label normally
     $menuContact->setLocale('es'); //Then set the proper locale

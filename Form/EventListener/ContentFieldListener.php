@@ -11,7 +11,7 @@
 namespace Positibe\Bundle\MenuBundle\Form\EventListener;
 
 use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
-use Positibe\Bundle\OrmContentBundle\Entity\MenuNode;
+use Positibe\Bundle\MenuBundle\Model\MenuNode;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -102,7 +102,7 @@ class ContentFieldListener implements EventSubscriberInterface
      */
     public function postSubmit(FormEvent $event)
     {
-        /** @var MenuNode $menu */
+        /** @var MenuNode|\Positibe\Bundle\ContentBundle\Entity\MenuNode $menu */
         $menu = $event->getData();
         if ($menu->getLinkType() === ContentAwareFactory::LINK_TYPE_CONTENT && $menu->getContent()) {
             $isNew = true;

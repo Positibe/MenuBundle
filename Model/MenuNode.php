@@ -21,7 +21,6 @@ use Knp\Menu\NodeInterface;
  */
 class MenuNode implements NodeInterface
 {
-
     /**
      * Node name.
      *

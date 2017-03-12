@@ -11,7 +11,6 @@
 namespace Positibe\Bundle\MenuBundle\Model;
 
 use Knp\Menu\NodeInterface;
-use Positibe\Bundle\OrmContentBundle\Entity\MenuNode;
 
 /**
  * Interface to be implemented by content that exposes editable menu referrers.

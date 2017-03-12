@@ -16,7 +16,7 @@ use Knp\Menu\MenuFactory;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\NodeInterface;
 use Knp\Menu\MenuItem;
-use Positibe\Bundle\MenuBundle\Entity\HasMenuRepositoryInterface;
+use Positibe\Bundle\MenuBundle\Repository\HasMenuRepositoryInterface;
 use Positibe\Bundle\MenuBundle\Event\CreateMenuItemFromNodeEvent;
 use Positibe\Bundle\MenuBundle\Voter\VoterInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableReadInterface;
