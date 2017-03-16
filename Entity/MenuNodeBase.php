@@ -93,7 +93,7 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
      * @var string
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="label", type="string", length=255)
+     * @ORM\Column(name="label", type="string", length=255, nullable=TRUE)
      */
     protected $label = '';
 
