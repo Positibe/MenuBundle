@@ -40,25 +40,13 @@ Import all necessary configurations to your app/config/config.yml the basic conf
         # ... order parameters
         positibe.menu_node.class: Positibe\Bundle\MenuBundle\Doctrine\Orm\MenuNode #The menu class
 
-    #If you want some advanced configuration
-    positibe_menu:
-        public_routes: # e.g. [homepage, my-company]  List of public symfony routes available.
-        content_class: # e.g. [ AppBundle\Entity\Post, AppBundle\Entity\Category ] List of content that extend of MenuNodeReferralInterface.
-
     #By default we disabled the `request_listener` in SymfonyCmf Core configuration because we don't use DynamicRouter on this bundles, enable it if you will use it.
-    cmf_core:
-        publish_workflow:
-            request_listener: true # false by default
+    #cmf_core:
+    #    publish_workflow:
+    #        request_listener: true # false by default
 
     parameters:
         locales: [es, en, fr] # Maybe you already have it configured
-
-And finally load the routing to use the form `MenuNodeType` correctly:
-
-    # app/config/routing.yml
-    # ... others routings
-    _positibe_menu:
-        resource: "@PositibeMenuBundle/Resources/config/routing.yml"
 
 **Caution:**: This bundle use the timestampable, sluggable, softdeletable, translatable and sortable extension of GedmoDoctrineExtension. Be sure you already have its listeners enabled. You can also to use StofDoctrineExtensionBundle.
 

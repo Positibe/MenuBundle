@@ -4,7 +4,7 @@ services:
         arguments:
           - "@positibe_menu.menu_factory"
           - "@doctrine.orm.entity_manager"
-          - %positibe.menu_node.class%
+          - "%positibe.menu_node.class%"
           - "@request_stack"
         tags:
           - { name: knp_menu.provider }
@@ -15,7 +15,7 @@ services:
           - "@router"
           - "@doctrine.orm.entity_manager"
           - "@cmf_core.publish_workflow.checker"
-          - %positibe.menu_node.class%
+          - "%positibe.menu_node.class%"
         calls:
           - [ addCurrentItemVoter, [ "@positibe_menu.uri_prefix_voter"]]
 #          - [ addCurrentItemVoter, [ "@positibe_menu.request_content_identity_voter"]]
@@ -46,17 +46,3 @@ services:
 #        arguments: ["@cmf_core.publish_workflow.checker"]
 #        tags:
 #            - { name: kernel.event_listener, event: cmf_menu.create_menu_item_from_node, method: onCreateMenuItemFromNode }
-
-#### Form Types ####
-    positibe_menu.menu_node_form_type:
-        class: Positibe\Bundle\MenuBundle\Form\Type\MenuNodeType
-        arguments: [%positibe.menu_node.class%, %locales%]
-        tags:
-          - { name: form.type , alias: positibe_menu_node }
-
-    positibe_menu.menu_form_type:
-        class: Positibe\Bundle\MenuBundle\Form\Type\MenuType
-
-        arguments: [%positibe.menu_node.class%]
-        tags:
-          - { name: form.type , alias: positibe_menu }

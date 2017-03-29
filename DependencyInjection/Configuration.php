@@ -28,14 +28,6 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('menu_node_class')
                     ->defaultValue('')
                 ->end()
-                ->arrayNode('public_routes')
-                    ->defaultValue(array())
-                    ->prototype('scalar')->end()
-                ->end()
-                ->arrayNode('content_class')
-                    ->defaultValue(array())
-                    ->prototype('scalar')->end()
-                ->end()
             ->end();
         return $treeBuilder;
     }

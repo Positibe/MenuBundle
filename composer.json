@@ -3,9 +3,9 @@
     "type": "symfony-bundle",
     "description": "Symfony PositibeMenuBundle",
     "keywords": ["cmf","block", "positibe", "positibelabs"],
-    "homepage": "http://positibelabs.com/bundles/media",
+    "homepage": "http://www.positibelabs.com/bundles/media",
     "license": "MIT",
-    "version": "1.0.0-beta5",
+    "version": "1.0.0-RC1",
     "authors": [
         {
             "name": "Pedro Carlos Abreu Jiménez",
@@ -14,7 +14,7 @@
         },
         {
             "name": "PositibeLabs",
-            "homepage": "https://github.com/positibelabs"
+            "homepage": "http://www.positibelabs.com"
         }
     ],
     "require": {
