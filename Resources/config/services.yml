@@ -29,7 +29,7 @@ services:
     positibe_menu.uri_prefix_voter:
         class: Positibe\Bundle\MenuBundle\Voter\UriPrefixVoter
         calls:
-            - [ setRequest, ["@request_stack"]]
+            - [ setRequestStack, ["@request_stack"]]
         tags:
             - { name: cmf_menu.voter }
 

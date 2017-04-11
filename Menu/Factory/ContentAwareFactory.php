@@ -153,27 +153,11 @@ class ContentAwareFactory extends MenuFactory
      */
     public function createFromNode(NodeInterface $node)
     {
-        $event = new CreateMenuItemFromNodeEvent($node, $this);
-//        $this->dispatcher->dispatch(Events::CREATE_ITEM_FROM_NODE, $event);
-
-//        if ($event->isSkipNode()) {
-//            if ($node instanceof MenuNode) {
-//                // create an empty menu root to avoid the knp menu from failing.
-//                return $this->createItem('');
-//            }
-//
-//            return null;
-//        }
-
-        $item = $event->getItem() ?: $this->createItem($node->getName(), $node->getOptions());
+        $item = $this->createItem($node->getName(), $node->getOptions());
 
         if (empty($item)) {
             return null;
         }
-
-//        if ($event->isSkipChildren()) {
-//            return $item;
-//        }
 
         return $this->addChildrenFromNode($node->getChildren(), $item);
     }

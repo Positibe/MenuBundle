@@ -32,13 +32,13 @@ use Knp\Menu\ItemInterface;
 class UriPrefixVoter implements VoterInterface
 {
     /**
-     * @var Request|null
+     * @var RequestStack|null
      */
-    private $request;
+    private $requestStack;
 
-    public function setRequest(RequestStack $requestStack = null)
+    public function setRequestStack(RequestStack $requestStack = null)
     {
-        $this->request = $requestStack->getMasterRequest();
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -46,7 +46,7 @@ class UriPrefixVoter implements VoterInterface
      */
     public function matchItem(ItemInterface $item)
     {
-        if (!$this->request) {
+        if (!$request = $this->requestStack->getMasterRequest()) {
             return null;
         }
 
@@ -54,12 +54,12 @@ class UriPrefixVoter implements VoterInterface
 
         if ($content instanceof Route && $content->hasOption('currentUriPrefix')) {
             $currentUriPrefix = $content->getOption('currentUriPrefix');
-            $currentUriPrefix = str_replace('{_locale}', $this->request->getLocale(), $currentUriPrefix);
-            if (0 === strncmp($this->request->getPathinfo(), $currentUriPrefix, strlen($currentUriPrefix))) {
+            $currentUriPrefix = str_replace('{_locale}', $request->getLocale(), $currentUriPrefix);
+            if (0 === strncmp($request->getPathinfo(), $currentUriPrefix, strlen($currentUriPrefix))) {
                 return true;
             }
-        } elseif ($item->getUri() === $this->request->getRequestUri() ||
-            $item->getUri() === $this->request->get('_fromRequestUri')
+        } elseif ($item->getUri() === $request->getRequestUri() ||
+            $item->getUri() === $request->get('_fromRequestUri')
         ) {
             return true;
         }
