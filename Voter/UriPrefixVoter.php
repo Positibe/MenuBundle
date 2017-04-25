@@ -11,7 +11,6 @@
 
 namespace Positibe\Bundle\MenuBundle\Voter;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 

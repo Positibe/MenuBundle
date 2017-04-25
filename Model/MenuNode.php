@@ -136,6 +136,10 @@ class MenuNode implements NodeInterface
         $this->children = new ArrayCollection();
     }
 
+    public function getId()
+    {
+    }
+
     /**
      * {@inheritDoc}
      */
