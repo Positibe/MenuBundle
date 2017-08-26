@@ -14,10 +14,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Knp\Menu\NodeInterface;
 use Positibe\Bundle\MenuBundle\Menu\Factory\ContentAwareFactory;
+use Positibe\Bundle\MenuBundle\Model\ContentIdUtil;
 use Positibe\Bundle\MenuBundle\Model\MenuNode;
 use Positibe\Bundle\MenuBundle\Model\MenuNodeInterface;
 use Positibe\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
-use Positibe\Component\ContentAware\Entity\ContentAwareTrait;
 use Positibe\Component\Publishable\Entity\PublishableTrait;
 use Positibe\Component\Publishable\Entity\PublishTimePeriodTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -47,7 +47,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class MenuNodeBase extends MenuNode implements MenuNodeInterface
 {
-    use ContentAwareTrait;
     use PublishableTrait;
     use PublishTimePeriodTrait;
 
@@ -233,6 +232,14 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
      */
     protected $iconClass;
 
+    protected $content;
+    /**
+     * @var string FQN:id
+     *
+     * @ORM\Column(name="content_id", type="string", length=255, nullable=TRUE)
+     */
+    protected $contentId;
+
     /**
      * @return string
      */
@@ -293,7 +300,7 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
         }
         $this->content = $content;
         if (is_object($content)) {
-            $this->setContentClassByContent($content);
+            $this->contentId = ContentIdUtil::getContentId($content);
         }
     }
 
@@ -377,6 +384,7 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
     {
         $this->locale = $locale;
     }
+
     /**
      * Whether this menu node can be displayed, meaning it is set to display
      * and it does have a non-empty label or non-empty icon class.
@@ -398,8 +406,8 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
             array(
                 'linkType' => $this->linkType,
                 'content' => $this->getContent(),
-                'contentClass' => $this->getContentClass(),
-                'iconClass' => $this->getIconClass()
+                'contentId' => $this->getContentId(),
+                'iconClass' => $this->getIconClass(),
             )
         );
     }
@@ -462,5 +470,29 @@ class MenuNodeBase extends MenuNode implements MenuNodeInterface
     public function setIconClass($iconClass)
     {
         $this->iconClass = $iconClass;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentId()
+    {
+        return $this->contentId;
+    }
+
+    /**
+     * @param string $contentId
+     */
+    public function setContentId($contentId)
+    {
+        $this->contentId = $contentId;
     }
 }

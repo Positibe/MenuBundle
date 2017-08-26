@@ -11,12 +11,11 @@ namespace Positibe\Bundle\MenuBundle\Menu\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityNotFoundException;
-use Doctrine\ORM\Mapping\MappingException;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\NodeInterface;
 use Knp\Menu\MenuItem;
-use Positibe\Bundle\MenuBundle\Repository\HasMenuRepositoryInterface;
+use Positibe\Bundle\MenuBundle\Model\ContentIdUtil;
 use Positibe\Bundle\MenuBundle\Voter\VoterInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableReadInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
@@ -58,7 +57,7 @@ class ContentAwareFactory extends MenuFactory
         self::LINK_TYPE_URI,
         self::LINK_TYPE_CONTENT,
         self::LINK_TYPE_ROUTE,
-        self::LINK_TYPE_ROOT
+        self::LINK_TYPE_ROOT,
     );
 
     protected $menuNodeClass;
@@ -181,7 +180,7 @@ class ContentAwareFactory extends MenuFactory
         $options = array_merge(
             array(
                 'content' => null,
-                'contentClass' => null,
+                'contentId' => null,
                 'routeParameters' => array(),
                 'routeAbsolute' => false,
                 'uri' => null,
@@ -203,7 +202,12 @@ class ContentAwareFactory extends MenuFactory
                 break;
             case 'content':
                 try {
-                    $options = $this->loadContent($options, $name);
+                    try {
+                        list($class, $id) = ContentIdUtil::getModelAndId($options['contentId']);
+
+                        $options['content'] = $this->manager->find($class, $id);
+                    } catch (\Exception $e) {
+                    }
 
                     if ($options['content'] instanceof PublishableReadInterface &&
                         !$this->publishWorkflowChecker->isGranted(
@@ -371,22 +375,5 @@ class ContentAwareFactory extends MenuFactory
         }
 
         return $item;
-    }
-
-    protected function loadContent($options, $name)
-    {
-        if ($options['content'] === null) {
-            try {
-                $repository = $this->manager->getRepository($options['contentClass']);
-                if ($repository instanceof HasMenuRepositoryInterface &&
-                    $content = $repository->findOneByMenuNodesName($name)
-                ) {
-                    $options['content'] = $content;
-                }
-            } catch (MappingException $e) {
-            }
-        }
-
-        return $options;
     }
 }

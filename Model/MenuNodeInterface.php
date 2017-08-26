@@ -11,7 +11,6 @@
 namespace Positibe\Bundle\MenuBundle\Model;
 
 use Knp\Menu\NodeInterface;
-use Positibe\Component\ContentAware\Model\ContentAwareInterface;
 use Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
@@ -29,8 +28,7 @@ interface MenuNodeInterface extends
     PublishTimePeriodInterface,
     PublishableInterface,
     MenuOptionsInterface,
-    ChildInterface,
-    ContentAwareInterface
+    ChildInterface
 {
     public function setDisplay($display);
 
@@ -138,5 +136,5 @@ interface MenuNodeInterface extends
      */
     public function setIconClass($iconClass);
 
-    public function getContentClass();
+    public function getContentId();
 } 
