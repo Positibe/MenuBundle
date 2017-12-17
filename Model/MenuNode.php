@@ -324,7 +324,7 @@ class MenuNode implements NodeInterface
     {
         $children = array();
         foreach ($this->children as $child) {
-            if (!$child instanceof NodeInterface) {
+            if (!$child instanceof NodeInterface || !$child->getDisplay()) {
                 continue;
             }
             $children[] = $child;
