@@ -20,17 +20,8 @@ class PositibeMenuExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
-
-        if (!$menuNodeClass = $config['menu_node_class']) {
-            $menuNodeClass = MenuNodeBase::class;
-        }
-
-        $container->setParameter('positibe.menu_node.class', $menuNodeClass);
     }
 
 }

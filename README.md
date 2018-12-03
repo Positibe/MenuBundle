@@ -30,23 +30,26 @@ Next, be sure to enable the bundles in your application kernel:
 Configuration
 =============
 
-Import all necessary configurations to your app/config/config.yml the basic configuration. You only need to define the available locales:
+Copy the configuration on yuor configuration packages:
 
-    # app/config/config.yml
-    imports:
-        - { resource: @PositibeMenuBundle/Resources/config/config.yml }
-
+    # config/packages/positibe_menu.yaml
     parameters:
-        # ... order parameters
-        positibe.menu_node.class: Positibe\Bundle\MenuBundle\Doctrine\Orm\MenuNode #The menu class
-
-    #By default we disabled the `request_listener` in SymfonyCmf Core configuration because we don't use DynamicRouter on this bundles, enable it if you will use it.
-    #cmf_core:
-    #    publish_workflow:
-    #        request_listener: true # false by default
-
-    parameters:
-        locales: [es, en, fr] # Maybe you already have it configured
+    #    locales: [es, en, fr] # Maybe you already have it configured
+       positibe.menu_node.class: Positibe\Bundle\MenuBundle\Doctrine\Orm\MenuNode
+    
+    knp_menu:
+        providers:
+            builder_alias: false
+            container_aware: false
+        twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
+            template: PositibeMenuBundle::_knp_menu.html.twig
+        templating: false # if true, enables the helper for PHP templates
+        default_renderer: twig # The renderer to use, list is also available by default
+    
+    doctrine:
+        orm:
+            resolve_target_entities:
+                Positibe\Bundle\MenuBundle\Model\MenuNodeInterface: "%positibe.menu_node.class%"
 
 **Caution:**: This bundle use the timestampable, sluggable, softdeletable, translatable and sortable extension of GedmoDoctrineExtension. Be sure you already have its listeners enabled. You can also to use StofDoctrineExtensionBundle.
 

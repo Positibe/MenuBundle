@@ -1,4 +1,11 @@
 services:
+#    _defaults:
+#        autowire: true
+#        autoconfigure: true
+#        public: false
+#        bind:
+#            $menuNodeClass: "%positibe.menu_node.class%"
+
     positibe_menu.menu_provider:
         class: Positibe\Bundle\MenuBundle\Menu\Provider\OrmMenuProvider
         arguments:
